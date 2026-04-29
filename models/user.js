@@ -9,10 +9,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    email: String,
-    phoneNumber: String,
-    address: String
-})
+});
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
