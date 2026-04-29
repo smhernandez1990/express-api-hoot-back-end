@@ -48,6 +48,16 @@ router.delete('/hoots/:hootId', async (req, res) => {
 })
 
 //Create Comment
-router.post('/hoots/:hootId/comments', async (req, res) => {
-
+router.post('/hoots/:hootId/comments', verifyJwt, async (req, res) => {
+    try {
+        req.body.author = req.user._id
+        const hoot = await Hoot.findById(req.params.hootId)
+        hoot.comments.push(req.body)
+        await hoot.save()
+        const newComment = hoot.comments[hoot.comments.length - 1]
+        newComment._doc.author = req.user
+        res.status(201).json(newComment)
+    } catch (error) {
+        res.status(500).json({ err: err.message})
+    }
 })
