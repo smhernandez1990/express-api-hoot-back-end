@@ -1,19 +1,28 @@
-const router = require('express').Router()
+const router = require('router')
+const express = require('express')
 const Hoot = require('../models/hoot')
+const verifyJwt = require('./verify-jwt')
 
 
 //Create
-router.post('/hoots', async (req, res) => {
+router.post('/', async (req, res) => {
 
 })
 
 //Index
-router.get('/hoots', async (req, res) => {
-
+router.get('/', verifyJwt, async (req, res) => {
+try {
+  const hoots = await Hoot.find({})
+    .populate("author")
+    .sort({ createdAt: "desc" });
+  res.status(200).json(hoots);
+} catch (err) {
+  res.status(500).json({ err: err.message });
+}
 })
 
 //Show
-router.get('/hoots/:hootId', async (req, res) => {
+router.get('/:hootId', async (req, res) => {
 
 })
 
