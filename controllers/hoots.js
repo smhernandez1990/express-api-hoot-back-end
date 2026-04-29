@@ -1,11 +1,17 @@
 const router = require('express').Router()
 const verifyJwt = require('../middleware/verify-jwt')
-const Hoot = require('../models/hoot')
-
+const Hoot = require("../models/hoot");
 
 //Create
-router.post('/hoots', async (req, res) => {
-
+router.post('/', verifyJwt, async (req, res) => {
+ try {
+  req.user._id === req.body.author;
+  const hoot = await Hoot.create(req.body);
+  hoot._doc.author = req.user;
+  res.status(201).json(hoot);
+ } catch (err) {
+  res.status(500).json({ error: error.message})
+ }
 })
 
 //Index
