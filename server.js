@@ -7,6 +7,7 @@ const cors = require('cors');
 const logger = require('morgan');
 const authController = require('./controllers/auth')
 const usersController = require('./controllers/users')
+const verifyJwt = require('./middleware/verify-jwt')
 
 require('./db/connection')
 
@@ -17,6 +18,7 @@ app.use(logger('dev'));
 // Routes
 
 app.use('/auth', authController)
+app.use(verifyJwt);
 app.use('/users', usersController)
 
 app.listen(3000, () => {
