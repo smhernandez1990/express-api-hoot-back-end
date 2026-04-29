@@ -17,6 +17,26 @@ router.get('/hoots/:hootId', async (req, res) => {
 
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Update
 router.put('/hoots/:hootId', async (req, res) => {
 
@@ -29,5 +49,5 @@ router.delete('/hoots/:hootId', async (req, res) => {
 
 //Create Comment
 router.post('/hoots/:hootId/comments', async (req, res) => {
-    
+
 })
