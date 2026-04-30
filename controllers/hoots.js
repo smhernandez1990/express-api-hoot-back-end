@@ -1,4 +1,3 @@
-const express = require('express')
 const verifyJwt = require("../middleware/verify-jwt");
 const Hoot = require("../models/hoot");
 const router = require('express').Router()
