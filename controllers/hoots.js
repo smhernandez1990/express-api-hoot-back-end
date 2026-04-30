@@ -1,6 +1,7 @@
 const router = require('express').Router()
-const verifyJwt = require('../middleware/verify-jwt')
-const Hoot = require("../models/hoot");
+const express = require('express')
+const Hoot = require('../models/hoot')
+const verifyJwt = require("./middleware/verify-jwt");
 
 //Create
 router.post('/', verifyJwt, async (req, res) => {
@@ -15,13 +16,18 @@ router.post('/', verifyJwt, async (req, res) => {
 })
 
 //Index
-router.get('/hoots', async (req, res) => {
-
+router.get('/', verifyJwt, async (req, res) => {
+  
 })
 
 //Show
-router.get('/hoots/:hootId', async (req, res) => {
-
+router.get('/:hootId', verifyJwt, async (req, res) => {
+  try {
+    const hoot = await Hoot.findById(req.params.hootId).populate("author");
+    res.status(200).json(hoot);
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
 })
 
 
@@ -45,7 +51,7 @@ router.get('/hoots/:hootId', async (req, res) => {
 
 
 //Update
-router.put('/hoots/:hootId', verifyJwt, async (req, res) => {
+router.put('/:hootId', verifyJwt, async (req, res) => {
     try {
         const hoot = await Hoot.findbyId(req.params.hootId)
         if(!hoot.author.equals(req.user._id)) {
@@ -64,12 +70,12 @@ router.put('/hoots/:hootId', verifyJwt, async (req, res) => {
 })
 
 //Delete
-router.delete('/hoots/:hootId', async (req, res) => {
+router.delete('/:hootId', async (req, res) => {
 
 })
 
 //Create Comment
-router.post('/hoots/:hootId/comments', async (req, res) => {
+router.post('/:hootId/comments', async (req, res) => {
 
 })
 
