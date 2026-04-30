@@ -23,12 +23,12 @@ try {
 
 //Show
 router.get('/:hootId', verifyJwt, async (req, res) => {
-  try {
-    const hoot = await Hoot.findById(req.params.hootId).populate("author");
-    res.status(200).json(hoot);
-  } catch (err) {
-    res.status(500).json({ err: err.message });
-  }
+    try {
+        const hoot = await Hoot.findById(req.params.hootId).populate("author");
+        res.status(200).json(hoot);
+    } catch (err) {
+        res.status(500).json({ err: err.message });
+    }
 });
 
 
@@ -71,9 +71,20 @@ router.put('/:hootId', verifyJwt, async (req, res) => {
 })
 
 //Delete
-router.delete('/:hootId', async (req, res) => {
+router.delete("/:hootId", verifyToken, async (req, res) => {
+    try {
+        const hoot = await Hoot.findById(req.params.hootId);
 
-})
+        if (!hoot.author.equals(req.user._id)) {
+            return res.status(403).send("You're not allowed to do that!");
+        }
+
+        const deletedHoot = await Hoot.findByIdAndDelete(req.params.hootId);
+        res.status(200).json(deletedHoot);
+    } catch (err) {
+        res.status(500).json({ err: err.message });
+    }
+});
 
 //Create Comment
 router.post('/:hootId/comments', async (req, res) => {
