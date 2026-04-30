@@ -99,6 +99,6 @@ router.post('/hoots/:hootId/comments', verifyJwt, async (req, res) => {
     } catch (error) {
         res.status(500).json({ err: err.message })
     }
-})
+});
 
 module.exports = router
