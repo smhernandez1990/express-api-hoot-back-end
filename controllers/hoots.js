@@ -15,12 +15,12 @@ router.post('/', verifyJwt, async (req, res) => {
 })
 
 //Index
-router.get('/hoots', async (req, res) => {
+router.get('/', async (req, res) => {
 
 })
 
 //Show
-router.get('/hoots/:hootId', async (req, res) => {
+router.get('/:hootId', async (req, res) => {
 
 })
 
@@ -45,7 +45,7 @@ router.get('/hoots/:hootId', async (req, res) => {
 
 
 //Update
-router.put('/hoots/:hootId', verifyJwt, async (req, res) => {
+router.put('/:hootId', verifyJwt, async (req, res) => {
     try {
         const hoot = await Hoot.findbyId(req.params.hootId)
         if(!hoot.author.equals(req.user._id)) {
@@ -64,12 +64,12 @@ router.put('/hoots/:hootId', verifyJwt, async (req, res) => {
 })
 
 //Delete
-router.delete('/hoots/:hootId', async (req, res) => {
+router.delete('/:hootId', async (req, res) => {
 
 })
 
 //Create Comment
-router.post('/hoots/:hootId/comments', async (req, res) => {
+router.post('/:hootId/comments', async (req, res) => {
 
 })
 
