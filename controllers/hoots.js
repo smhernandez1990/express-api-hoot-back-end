@@ -1,12 +1,19 @@
 const router = require('router')
 const express = require('express')
 const Hoot = require('../models/hoot')
-const verifyJwt = require('./verify-jwt')
+const verifyJwt = require('../middleware/verify-jwt')
 
 
 //Create
-router.post('/', async (req, res) => {
-
+router.post('/', verifyJwt, async (req, res) => {
+    try {
+        req.user._id === req.body.author;
+        const hoot = await Hoot.create(req.body);
+        hoot._doc.author = req.user;
+        res.status(201).json(hoot);
+    } catch (err) {
+        res.status(500).json({ error: error.message })
+    }
 })
 
 //Index
