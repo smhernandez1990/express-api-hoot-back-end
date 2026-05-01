@@ -1,5 +1,4 @@
-const router = require('router')
-const express = require('express')
+const router = require('express').Router()
 const Hoot = require('../models/hoot')
 const verifyJwt = require('../middleware/verify-jwt')
 
@@ -78,7 +77,7 @@ router.put('/:hootId', verifyJwt, async (req, res) => {
 })
 
 //Delete
-router.delete("/:hootId", verifyToken, async (req, res) => {
+router.delete("/:hootId", verifyJwt, async (req, res) => {
     try {
         const hoot = await Hoot.findById(req.params.hootId);
 
