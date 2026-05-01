@@ -38,25 +38,6 @@ router.get('/:hootId', verifyJwt, async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Update
 router.put('/:hootId', verifyJwt, async (req, res) => {
     try {
