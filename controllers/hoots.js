@@ -93,7 +93,7 @@ router.delete("/:hootId", verifyJwt, async (req, res) => {
 });
 
 //Create Comment
-router.post('/hoots/:hootId/comments', verifyJwt, async (req, res) => {
+router.post('/:hootId/comments', verifyJwt, async (req, res) => {
     try {
         req.body.author = req.user._id
         const hoot = await Hoot.findById(req.params.hootId)
